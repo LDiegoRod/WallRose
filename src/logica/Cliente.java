@@ -1,9 +1,12 @@
 package logica;
 
+import java.util.List;
+
 public class Cliente {
-    private String id;
-    private String nombre;
-    private String email;
+	private String id;
+	private String nombre;
+	private String email;
+	private List<OrdenCompra> ordenes;
 
     public Cliente(String id, String nombre, String email) {
         this.id = id;

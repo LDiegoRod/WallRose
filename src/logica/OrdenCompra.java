@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrdenCompra {
-    private static int consecutivo = 1;
+	private static int consecutivo = 1;
 
-    private int numero;
-    private LocalDate fecha;
-    private String estado;
-    private Cliente cliente;
-    private List<LineaOrden> lineas;
+	private int numero;
+	private LocalDate fecha;
+	private String estado;
+	private Cliente cliente;
+	private List<LineaOrden> lineas;
 
     public OrdenCompra(Cliente cliente) {
         this.numero = consecutivo++;
