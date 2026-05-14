@@ -90,3 +90,124 @@ public class WallRose {
         productoActual.setUnidad(unidad);
         productoActual.setPrecio(precio);
     }
+    public void borrarProducto(int codigo) {
+        Producto productoActual = obtenerProducto(codigo);
+        productos.remove(productoActual);
+    }
+
+    public List<OrdenCompra> obtenerOrdenes() {
+        return ordenes;
+    }
+
+    public float obtenerTotalPendiente() {
+        float total = 0;
+
+        for (OrdenCompra ordenActual : ordenes) {
+            if (ordenActual.getEstado().equals("Pendiente")) {
+                total += ordenActual.getMontoTotal();
+            }
+        }
+
+        return total;
+    }
+
+    public int crearOrdenCompra(String idCliente) {
+        Cliente clienteActual = obtenerCliente(idCliente);
+        OrdenCompra ordenNueva = new OrdenCompra(clienteActual);
+        ordenes.add(ordenNueva);
+        return ordenNueva.getNumero();
+    }
+
+    public OrdenCompra obtenerOrdenCompra(int numero) {
+        for (OrdenCompra ordenActual : ordenes) {
+            if (ordenActual.getNumero() == numero) {
+                return ordenActual;
+            }
+        }
+
+        throw new IllegalArgumentException("No existe una orden con ese numero.");
+    }
+
+    public List<OrdenCompra> obtenerOrdenesCliente(String idCliente) {
+        List<OrdenCompra> resultado = new ArrayList<>();
+
+        for (OrdenCompra ordenActual : ordenes) {
+            if (ordenActual.getCliente().getId().equals(idCliente)) {
+                resultado.add(ordenActual);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List<OrdenCompra> obtenerOrdenesIniciadas(String idCliente) {
+        List<OrdenCompra> resultado = new ArrayList<>();
+
+        for (OrdenCompra ordenActual : ordenes) {
+            if (ordenActual.getCliente().getId().equals(idCliente)
+                    && ordenActual.getEstado().equals("Iniciada")) {
+                resultado.add(ordenActual);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List<OrdenCompra> obtenerOrdenesPendientes(String idCliente) {
+        List<OrdenCompra> resultado = new ArrayList<>();
+
+        for (OrdenCompra ordenActual : ordenes) {
+            if (ordenActual.getCliente().getId().equals(idCliente)
+                    && ordenActual.getEstado().equals("Pendiente")) {
+                resultado.add(ordenActual);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List<OrdenCompra> obtenerOrdenesTerminadas(String idCliente) {
+        List<OrdenCompra> resultado = new ArrayList<>();
+
+        for (OrdenCompra ordenActual : ordenes) {
+            if (ordenActual.getCliente().getId().equals(idCliente)
+                    && ordenActual.getEstado().equals("Terminada")) {
+                resultado.add(ordenActual);
+            }
+        }
+
+        return resultado;
+    }
+
+    public void agregarLinea(int numeroOrden, int codigoProducto, float cantidad) {
+        OrdenCompra ordenActual = obtenerOrdenCompra(numeroOrden);
+        Producto productoActual = obtenerProducto(codigoProducto);
+        ordenActual.agregarLinea(productoActual, cantidad);
+    }
+
+    public void actualizarLinea(int numeroOrden, int numeroLinea, int codigoProducto, float cantidad) {
+        OrdenCompra ordenActual = obtenerOrdenCompra(numeroOrden);
+        Producto productoActual = obtenerProducto(codigoProducto);
+        ordenActual.actualizarLinea(numeroLinea, productoActual, cantidad);
+    }
+
+    public void borrarLinea(int numeroOrden, int numeroLinea) {
+        OrdenCompra ordenActual = obtenerOrdenCompra(numeroOrden);
+        ordenActual.borrarLinea(numeroLinea);
+    }
+
+    public void ponerOrdenPendiente(int numero) {
+        OrdenCompra ordenActual = obtenerOrdenCompra(numero);
+        ordenActual.ponerPendiente();
+    }
+
+    public void ponerOrdenTerminada(int numero) {
+        OrdenCompra ordenActual = obtenerOrdenCompra(numero);
+        ordenActual.ponerTerminada();
+    }
+
+    public void borrarOrden(int numero) {
+        OrdenCompra ordenActual = obtenerOrdenCompra(numero);
+        ordenes.remove(ordenActual);
+    }
+}
