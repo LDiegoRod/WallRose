@@ -42,6 +42,12 @@ public class MenuPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnClientes = new JButton("Gestionar Clientes");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaClientes ventana = new VentanaClientes();
+				ventana.setVisible(true);
+			}
+		});
 		btnClientes.setBounds(10, 230, 123, 22);
 		contentPane.add(btnClientes);
 		

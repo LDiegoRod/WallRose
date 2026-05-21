@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FormularioCliente extends JDialog {
 
@@ -73,6 +75,26 @@ public class FormularioCliente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnGuardar = new JButton("GUARDAR");
+				btnGuardar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						String id = txtId.getText();
+						String nombre = txtNombre.getText();
+						String email = txtEmail.getText();
+
+						try {
+						    control.WallRose.getInstancia().crearCliente(id, nombre, email);
+						    
+						    javax.swing.JOptionPane.showMessageDialog(null, "¡Cliente guardado exitosamente!");
+						    
+						    dispose();
+						    
+						} catch (IllegalArgumentException ex) {
+
+						    javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al guardar", javax.swing.JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
 				btnGuardar.setActionCommand("OK");
 				buttonPane.add(btnGuardar);
 				getRootPane().setDefaultButton(btnGuardar);
