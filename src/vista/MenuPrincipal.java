@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MenuPrincipal extends JFrame {
 
@@ -36,7 +39,23 @@ public class MenuPrincipal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnClientes = new JButton("Gestionar Clientes");
+		btnClientes.setBounds(10, 230, 123, 22);
+		contentPane.add(btnClientes);
+		
+		JButton btnProductos = new JButton("Gestionar Productos");
+		btnProductos.setBounds(143, 230, 144, 22);
+		contentPane.add(btnProductos);
+		
+		JButton btnOrdenes = new JButton("Gestionar Órdenes");
+		btnOrdenes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnOrdenes.setBounds(297, 230, 129, 22);
+		contentPane.add(btnOrdenes);
 
 	}
-
 }
