@@ -77,10 +77,10 @@ public class FormularioCliente extends JDialog {
 				JButton btnGuardar = new JButton("GUARDAR");
 				btnGuardar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-
-						String id = txtId.getText();
-						String nombre = txtNombre.getText();
-						String email = txtEmail.getText();
+						
+						String id = textField.getText();
+						String nombre = textField_1.getText();
+						String email = textField_2.getText();
 
 						try {
 						    control.WallRose.getInstancia().crearCliente(id, nombre, email);
@@ -90,7 +90,6 @@ public class FormularioCliente extends JDialog {
 						    dispose();
 						    
 						} catch (IllegalArgumentException ex) {
-
 						    javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al guardar", javax.swing.JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -101,6 +100,11 @@ public class FormularioCliente extends JDialog {
 			}
 			{
 				JButton btnCancel = new JButton("Cancel");
+				btnCancel.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				        dispose(); 
+				    }
+				});
 				btnCancel.setActionCommand("Cancel");
 				buttonPane.add(btnCancel);
 			}

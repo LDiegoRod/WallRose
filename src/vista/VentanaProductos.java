@@ -12,18 +12,18 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaClientes extends JDialog {
+public class VentanaProductos extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTable tblClientes;
+	private JTable tblProductos;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			VentanaClientes dialog = new VentanaClientes();
+			VentanaProductos dialog = new VentanaProductos();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class VentanaClientes extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaClientes() {
+	public VentanaProductos() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,24 +42,24 @@ public class VentanaClientes extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 261, 175);
+		scrollPane.setBounds(25, 21, 253, 198);
 		contentPanel.add(scrollPane);
 		
-		tblClientes = new JTable();
-		scrollPane.setViewportView(tblClientes);
+		tblProductos = new JTable();
+		scrollPane.setViewportView(tblProductos);
 		
-		JButton btnNuevoCliente = new JButton("Nuevo Cliente");
-		btnNuevoCliente.addActionListener(new ActionListener() {
+		JButton btnNewButton = new JButton("Nuevo Producto");
+		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormularioCliente formulario = new FormularioCliente();
 
-				formulario.setModal(true); 
+				FormularioProducto formulario = new FormularioProducto();
+				formulario.setModal(true);
 				formulario.setVisible(true);
-				cargarClientes(); 
+				cargarProductos();
 			}
 		});
-		btnNuevoCliente.setBounds(93, 197, 118, 22);
-		contentPanel.add(btnNuevoCliente);
+		btnNewButton.setBounds(288, 18, 138, 22);
+		contentPanel.add(btnNewButton);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -81,25 +81,30 @@ public class VentanaClientes extends JDialog {
 				buttonPane.add(btnCancel);
 			}
 		}
-		cargarClientes();
 	}
-	
-	public void cargarClientes() {
-	    java.util.List<logica.Cliente> listaClientes = control.WallRose.getInstancia().obtenerClientes();
+	public void cargarProductos() {
+
+	    java.util.List<logica.Producto> listaProductos = control.WallRose.getInstancia().obtenerProductos();
+
 
 	    javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
-	    modelo.addColumn("ID");
+	    modelo.addColumn("Código");
 	    modelo.addColumn("Nombre");
-	    modelo.addColumn("Email");
+	    modelo.addColumn("Existencias");
+	    modelo.addColumn("Unidad");
+	    modelo.addColumn("Precio");
 
-	    for (logica.Cliente c : listaClientes) {
-	        Object[] fila = new Object[3];
-	        fila[0] = c.getId();
-	        fila[1] = c.getNombre();
-	        fila[2] = c.getEmail();
+
+	    for (logica.Producto p : listaProductos) {
+	        Object[] fila = new Object[5]; 
+	        fila[0] = p.getCodigo();
+	        fila[1] = p.getNombre();
+	        fila[2] = p.getExistencias();
+	        fila[3] = p.getUnidad();
+	        fila[4] = p.getPrecio();
 	        modelo.addRow(fila); 
 	    }
 
-	    tblClientes.setModel(modelo);
+	    tblProductos.setModel(modelo);
 	}
 }

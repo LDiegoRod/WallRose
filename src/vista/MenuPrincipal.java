@@ -52,6 +52,12 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(btnClientes);
 		
 		JButton btnProductos = new JButton("Gestionar Productos");
+		btnProductos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaProductos ventanaProd = new VentanaProductos();
+				ventanaProd.setVisible(true);
+			}
+		});
 		btnProductos.setBounds(143, 230, 144, 22);
 		contentPane.add(btnProductos);
 		
