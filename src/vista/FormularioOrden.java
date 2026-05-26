@@ -53,7 +53,6 @@ public class FormularioOrden extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-
 		JLabel lblCliente = new JLabel("Cliente:");
 		lblCliente.setBounds(20, 20, 60, 14);
 		contentPanel.add(lblCliente);
@@ -61,7 +60,6 @@ public class FormularioOrden extends JDialog {
 		cbClientes = new JComboBox<String>();
 		cbClientes.setBounds(80, 16, 250, 22);
 		contentPanel.add(cbClientes);
-
 
 		JLabel lblProducto = new JLabel("Producto:");
 		lblProducto.setBounds(20, 60, 60, 14);
@@ -85,7 +83,6 @@ public class FormularioOrden extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				try {
 				    String prodSeleccionado = (String) cbProductos.getSelectedItem();
-
 				    int codProd = Integer.parseInt(prodSeleccionado.split(" - ")[0]);
 
 				    logica.Producto p = control.WallRose.getInstancia().obtenerProducto(codProd);
@@ -94,7 +91,6 @@ public class FormularioOrden extends JDialog {
 				    float totalLinea = cantidad * p.getPrecio();
 
 				    modeloLineas.addRow(new Object[]{prodSeleccionado, cantidad, p.getPrecio(), totalLinea});
-
 				    actualizarTotales();
 
 				    txtCantidad.setText("");
@@ -109,7 +105,6 @@ public class FormularioOrden extends JDialog {
 		btnAgregarLinea.setBounds(440, 56, 120, 22);
 		contentPanel.add(btnAgregarLinea);
 
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 100, 540, 180);
 		contentPanel.add(scrollPane);
@@ -122,7 +117,6 @@ public class FormularioOrden extends JDialog {
 		modeloLineas.addColumn("Total");
 		tblLineas.setModel(modeloLineas);
 		scrollPane.setViewportView(tblLineas);
-
 
 		JLabel lblSubtotal = new JLabel("Subtotal:");
 		lblSubtotal.setBounds(380, 290, 80, 14);
@@ -156,7 +150,6 @@ public class FormularioOrden extends JDialog {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-	
 				    if (modeloLineas.getRowCount() == 0) {
 				        javax.swing.JOptionPane.showMessageDialog(null, "La orden debe tener al menos un producto agregado.");
 				        return;
@@ -174,6 +167,8 @@ public class FormularioOrden extends JDialog {
 
 				        control.WallRose.getInstancia().agregarLinea(numOrden, codProd, cantidad);
 				    }
+
+				    control.WallRose.getInstancia().guardarDatos();
 
 				    javax.swing.JOptionPane.showMessageDialog(null, "¡Orden #" + numOrden + " creada exitosamente!");
 				    dispose();
@@ -197,7 +192,6 @@ public class FormularioOrden extends JDialog {
 		cargarProductos();
 	}
 
-
 	private void cargarClientes() {
 		List<logica.Cliente> clientes = control.WallRose.getInstancia().obtenerClientes();
 		for (logica.Cliente c : clientes) {
@@ -211,6 +205,7 @@ public class FormularioOrden extends JDialog {
 			cbProductos.addItem(p.getCodigo() + " - " + p.getNombre());
 		}
 	}
+
 	private void actualizarTotales() {
 	    float subtotal = 0;
 

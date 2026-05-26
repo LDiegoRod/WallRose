@@ -85,7 +85,7 @@ public class VentanaOrdenes extends JDialog {
 	    for (logica.OrdenCompra o : listaOrdenes) {
 	        Object[] fila = new Object[3];
 	        fila[0] = o.getNumero(); 
-	        fila[1] = o.getCliente();
+	        fila[1] = o.getCliente().getId();
 	        fila[2] = o.getMontoTotal(); 
 	        modelo.addRow(fila);
 	    }
