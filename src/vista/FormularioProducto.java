@@ -96,17 +96,18 @@ public class FormularioProducto extends JDialog {
 						    float existencias = Float.parseFloat(txtExistencias.getText());
 						    float precio = Float.parseFloat(txtPrecio.getText());
 
+				
 						    control.WallRose.getInstancia().crearProducto(nombre, existencias, unidad, precio);
 
+
+						    control.WallRose.getInstancia().guardarDatos();
 
 						    javax.swing.JOptionPane.showMessageDialog(null, "¡Producto guardado exitosamente!");
 						    dispose(); 
 
 						} catch (NumberFormatException ex) {
-
 						    javax.swing.JOptionPane.showMessageDialog(null, "Por favor ingrese solo números válidos en Existencias y Precio.", "Error de formato", javax.swing.JOptionPane.ERROR_MESSAGE);
 						} catch (IllegalArgumentException ex) {
-
 						    javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al guardar", javax.swing.JOptionPane.ERROR_MESSAGE);
 						}
 					}

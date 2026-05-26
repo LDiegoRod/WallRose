@@ -1,8 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -52,7 +50,6 @@ public class VentanaClientes extends JDialog {
 		btnNuevoCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormularioCliente formulario = new FormularioCliente();
-
 				formulario.setModal(true); 
 				formulario.setVisible(true);
 				cargarClientes(); 
@@ -60,22 +57,8 @@ public class VentanaClientes extends JDialog {
 		});
 		btnNuevoCliente.setBounds(93, 197, 118, 22);
 		contentPanel.add(btnNuevoCliente);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-			{
-				JButton btnCancel = new JButton("Cancel");
-				btnCancel.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent e) {
-				        dispose(); 
-				    }
-				});
-				btnCancel.setActionCommand("Cancel");
-				buttonPane.add(btnCancel);
-			}
-		}
+
 		cargarClientes();
 	}
 	

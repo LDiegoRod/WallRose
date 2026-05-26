@@ -83,10 +83,13 @@ public class FormularioCliente extends JDialog {
 						String email = textField_2.getText();
 
 						try {
+		
 						    control.WallRose.getInstancia().crearCliente(id, nombre, email);
 						    
-						    javax.swing.JOptionPane.showMessageDialog(null, "¡Cliente guardado exitosamente!");
+
+						    control.WallRose.getInstancia().guardarDatos();
 						    
+						    javax.swing.JOptionPane.showMessageDialog(null, "¡Cliente guardado exitosamente!");
 						    dispose();
 						    
 						} catch (IllegalArgumentException ex) {
