@@ -18,6 +18,9 @@ public class WallRose {
         this.clientes = new ArrayList<>();
         this.productos = new ArrayList<>();
         this.ordenes = new ArrayList<>();
+        
+
+        this.cargarDatos();
     }
 
 
