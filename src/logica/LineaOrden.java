@@ -1,6 +1,7 @@
 package logica;
 
-public class LineaOrden {
+public class LineaOrden implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
     private Producto producto;
     private float cantidad;
 

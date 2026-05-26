@@ -210,4 +210,44 @@ public class WallRose {
         OrdenCompra ordenActual = obtenerOrdenCompra(numero);
         ordenes.remove(ordenActual);
     }
+    public void guardarDatos() {
+        try {
+  
+            java.io.FileOutputStream archivo = new java.io.FileOutputStream("datos.wallrose");
+            java.io.ObjectOutputStream out = new java.io.ObjectOutputStream(archivo);
+            
+
+            out.writeObject(this.clientes);
+            out.writeObject(this.productos);
+            out.writeObject(this.ordenes);
+
+            out.close();
+            archivo.close();
+            System.out.println("¡Datos respaldados con éxito en datos.wallrose!");
+        } catch (java.io.IOException e) {
+            System.out.println("Error al guardar los datos: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void cargarDatos() {
+        try {
+            java.io.FileInputStream archivo = new java.io.FileInputStream("datos.wallrose");
+            java.io.ObjectInputStream in = new java.io.ObjectInputStream(archivo);
+            
+ 
+            this.clientes = (java.util.ArrayList<logica.Cliente>) in.readObject();
+            this.productos = (java.util.ArrayList<logica.Producto>) in.readObject();
+            this.ordenes = (java.util.ArrayList<logica.OrdenCompra>) in.readObject();
+            
+            in.close();
+            archivo.close();
+            System.out.println("¡Datos cargados exitosamente desde el disco duro!");
+        } catch (java.io.FileNotFoundException e) {
+
+            System.out.println("Archivo de respaldo no encontrado. Iniciando con datos vacíos.");
+        } catch (java.io.IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los datos: " + e.getMessage());
+        }
+    }
 }

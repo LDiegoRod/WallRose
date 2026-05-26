@@ -81,6 +81,31 @@ public class FormularioOrden extends JDialog {
 		txtCantidad.setColumns(10);
 
 		JButton btnAgregarLinea = new JButton("Agregar Línea");
+		btnAgregarLinea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				    String prodSeleccionado = (String) cbProductos.getSelectedItem();
+
+				    int codProd = Integer.parseInt(prodSeleccionado.split(" - ")[0]);
+
+				    logica.Producto p = control.WallRose.getInstancia().obtenerProducto(codProd);
+				    
+				    float cantidad = Float.parseFloat(txtCantidad.getText());
+				    float totalLinea = cantidad * p.getPrecio();
+
+				    modeloLineas.addRow(new Object[]{prodSeleccionado, cantidad, p.getPrecio(), totalLinea});
+
+				    actualizarTotales();
+
+				    txtCantidad.setText("");
+
+				} catch (NumberFormatException ex) {
+				    javax.swing.JOptionPane.showMessageDialog(null, "Por favor ingrese una cantidad numérica válida.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+				} catch (NullPointerException ex) {
+				    javax.swing.JOptionPane.showMessageDialog(null, "No hay productos disponibles para seleccionar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		btnAgregarLinea.setBounds(440, 56, 120, 22);
 		contentPanel.add(btnAgregarLinea);
 
@@ -128,6 +153,36 @@ public class FormularioOrden extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		JButton btnGuardar = new JButton("Guardar Orden");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+	
+				    if (modeloLineas.getRowCount() == 0) {
+				        javax.swing.JOptionPane.showMessageDialog(null, "La orden debe tener al menos un producto agregado.");
+				        return;
+				    }
+
+				    String clienteSel = (String) cbClientes.getSelectedItem();
+				    String idCliente = clienteSel.split(" - ")[0];
+
+				    int numOrden = control.WallRose.getInstancia().crearOrdenCompra(idCliente);
+
+				    for (int i = 0; i < modeloLineas.getRowCount(); i++) {
+				        String prodStr = (String) modeloLineas.getValueAt(i, 0);
+				        int codProd = Integer.parseInt(prodStr.split(" - ")[0]);
+				        float cantidad = (float) modeloLineas.getValueAt(i, 1);
+
+				        control.WallRose.getInstancia().agregarLinea(numOrden, codProd, cantidad);
+				    }
+
+				    javax.swing.JOptionPane.showMessageDialog(null, "¡Orden #" + numOrden + " creada exitosamente!");
+				    dispose();
+
+				} catch (Exception ex) {
+				    javax.swing.JOptionPane.showMessageDialog(null, "Error al guardar la orden: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		buttonPane.add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
@@ -155,5 +210,19 @@ public class FormularioOrden extends JDialog {
 		for (logica.Producto p : productos) {
 			cbProductos.addItem(p.getCodigo() + " - " + p.getNombre());
 		}
+	}
+	private void actualizarTotales() {
+	    float subtotal = 0;
+
+	    for (int i = 0; i < modeloLineas.getRowCount(); i++) {
+	        subtotal += (float) modeloLineas.getValueAt(i, 3);
+	    }
+
+	    float impuesto = subtotal * 0.13f;
+	    float total = subtotal + impuesto;
+
+	    lblSubtotalVal.setText(String.valueOf(subtotal));
+	    lblImpuestoVal.setText(String.valueOf(impuesto));
+	    lblTotalVal.setText(String.valueOf(total));
 	}
 }

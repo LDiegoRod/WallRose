@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenCompra {
+public class OrdenCompra implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	private static int consecutivo = 1;
 
 	private int numero;

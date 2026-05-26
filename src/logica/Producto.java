@@ -1,6 +1,7 @@
 package logica;
 
-public class Producto {
+public class Producto implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
     private static int consecutivo = 1;
 
     private int codigo;

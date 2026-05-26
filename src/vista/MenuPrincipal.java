@@ -64,6 +64,8 @@ public class MenuPrincipal extends JFrame {
 		JButton btnOrdenes = new JButton("Gestionar Órdenes");
 		btnOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaOrdenes ventanaOrden = new VentanaOrdenes(); 
+				ventanaOrden.setVisible(true);
 			}
 		});
 		btnOrdenes.setBounds(297, 230, 129, 22);
