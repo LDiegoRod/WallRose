@@ -64,12 +64,7 @@ public class VentanaClientes extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
+
 			{
 				JButton btnCancel = new JButton("Cancel");
 				btnCancel.addActionListener(new ActionListener() {

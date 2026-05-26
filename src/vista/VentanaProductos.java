@@ -60,27 +60,8 @@ public class VentanaProductos extends JDialog {
 		});
 		btnNewButton.setBounds(288, 18, 138, 22);
 		contentPanel.add(btnNewButton);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton btnCancel = new JButton("Cancel");
-				btnCancel.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent e) {
-				        dispose(); 
-				    }
-				});
-				btnCancel.setActionCommand("Cancel");
-				buttonPane.add(btnCancel);
-			}
-		}
+		
+		this.cargarProductos();
 	}
 	public void cargarProductos() {
 
